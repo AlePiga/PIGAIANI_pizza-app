@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,24 +14,30 @@ public class App {
     }
 
     public void doGet() throws IOException {
-        Request request = new Request.Builder().url("https://crudcrud.com/api/1748b029d5de4e4f9106cfaa0e710ab7/pizze")
+        Request request = new Request.Builder()
+                .url("https://crudcrud.com/api/3c7aef38a890417abedb6ba8cdc82aed/pizze")
                 .build();
+
         try (Response response = client.newCall(request).execute()) {
-            if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
-            }
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
             Headers responseHeaders = response.headers();
             for (int i = 0; i < responseHeaders.size(); i++) {
                 System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
             }
-            System.out.println(response.body().string());
+
+            Gson gson = new Gson();
+            Pizza[] pizze = gson.fromJson(response.body().string(), Pizza[].class);
+            for (Pizza p : pizze) {
+                System.out.println(p.toString());
+            }
         }
     }
 
     public void run() {
-        try{
+        try {
             doGet();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
