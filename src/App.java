@@ -30,32 +30,36 @@ public class App {
             int operation = -1;
 
             try {
-                System.out.println("\nDigita il numero dell'operazione: ");
+                System.out.print("\nDigita il numero dell'operazione: ");
                 operation = sc.nextInt();
                 sc.nextLine();
             } catch (InputMismatchException ex) {
-                System.out.println("Digita il numero dell'operazione: ");
+                System.out.print("Digita il numero dell'operazione: ");
                 sc.nextLine();
                 continue;
             }
 
-            switch (operation) {
-                case 1:
-                    try {
-                        Pizza[] pizze = getPizze();
-                        AsciiTable asciiTable = new AsciiTable();
+            switch (operation) {case 1:
+                try {
+                    Pizza[] pizze = getPizze();
+                    AsciiTable asciiTable = new AsciiTable();
+                    asciiTable.addRule();
+                    asciiTable.addRow(" NOME", " INGREDIENTI", " PREZZO", " ID");
+                    asciiTable.addRule();
+                    for (Pizza pizza : pizze) {
+                        asciiTable.addRow(
+                                " " + pizza.nome,
+                                " " + pizza.ingredienti,
+                                " €" + pizza.prezzo,
+                                " " + pizza._id
+                        );
                         asciiTable.addRule();
-                        asciiTable.addRow(" ID", " NOME", " PREZZO", " INGREDIENTI");
-                        asciiTable.addRule();
-                        for (Pizza pizza : pizze) {
-                            asciiTable.addRow(" " + pizza._id, " " + pizza.nome, " " + pizza.prezzo, " " + pizza.ingredienti);
-                            asciiTable.addRule();
-                        }
-                        System.out.println(asciiTable.render());
-                    } catch (IOException e) {
-                        System.out.println("Errore: " + e.getClass());
                     }
-                    break;
+                    System.out.println(asciiTable.render());
+                } catch (IOException e) {
+                    System.out.println("Errore: " + e.getClass());
+                }
+                break;
 
                 case 2:
                     System.out.println("Inserisci ID della pizza:");
@@ -66,9 +70,14 @@ public class App {
                         if (pizza != null) {
                             AsciiTable asciiTable = new AsciiTable();
                             asciiTable.addRule();
-                            asciiTable.addRow(" ID", " NOME", " PREZZO", " INGREDIENTI");
+                            asciiTable.addRow(" NOME", " INGREDIENTI", " PREZZO", " ID");
                             asciiTable.addRule();
-                            asciiTable.addRow(" " + pizza._id, " " + pizza.nome, " " + pizza.prezzo, " " + pizza.ingredienti);
+                            asciiTable.addRow(
+                                    " " + pizza.nome,
+                                    " " + pizza.ingredienti,
+                                    " €" + pizza.prezzo,
+                                    " " + pizza._id
+                            );
                             asciiTable.addRule();
                             System.out.println(asciiTable.render());
                         } else {
@@ -78,6 +87,7 @@ public class App {
                         System.out.println("Errore durante la richiesta: " + e.getMessage());
                     }
                     break;
+
 
                 default:
                     System.out.println("Operazione non valida");
