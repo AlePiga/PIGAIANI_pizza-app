@@ -96,7 +96,7 @@ public class App {
                     String nuovoNome = sc.nextLine();
                     System.out.print("Nuovi ingredienti: ");
                     String nuoviIngredienti = sc.nextLine();
-                    System.out.print("Nuovo prezzo: ");
+                    System.out.print("Nuovo prezzo in €: ");
                     double nuovoPrezzo = sc.nextDouble();
                     sc.nextLine();
 
@@ -124,7 +124,7 @@ public class App {
                     String nome = sc.nextLine();
                     System.out.print("Ingredienti: ");
                     String ingredienti = sc.nextLine();
-                    System.out.print("Prezzo: ");
+                    System.out.print("Prezzo in €: ");
                     double prezzo = sc.nextDouble();
                     sc.nextLine();
 
